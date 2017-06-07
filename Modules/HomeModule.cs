@@ -18,7 +18,6 @@ namespace BestRestaurants
       Get["/cuisine/new"] = _ => {
         Dictionary<string, string> model = new Dictionary<string, string>{};
         string formType = Request.Query["form-type"];
-        Console.WriteLine(formType);
         model.Add("form-type", formType);
         return View["form.cshtml", model];
       };
@@ -56,6 +55,12 @@ namespace BestRestaurants
       };
       Delete["/"] = _ => {
         Cuisine.DeleteAll();
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
+      Delete["/cuisine/{id}/delete"] = parameters => {
+        Cuisine selectedCuisine = Cuisine.Find(parameters.id);
+        selectedCuisine.DeleteSingleCuisine();
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };

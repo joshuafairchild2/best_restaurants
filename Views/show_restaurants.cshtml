@@ -17,4 +17,10 @@
   <input type="hidden" name="form-type" id="form-type" value="restaurant">
 </form>
 
+<form action='/cuisine/@Model["selected-cuisine"].GetId()/delete' method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" class="btn btn-danger">Delete this cuisine</button>
+  <h5>All saved restaurants will be deleted</h5>
+</form>
+
 <h3><a href="/">Home page</a></h3>

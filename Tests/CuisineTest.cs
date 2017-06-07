@@ -83,6 +83,22 @@ namespace BestRestaurants
       Assert.Equal(controlList, testList);
     }
 
+    [Fact]
+    public void TestCuisineDelete_DeletesSingleCuisine()
+    {
+      Cuisine newCuisine1 = new Cuisine("Chinese");
+      newCuisine1.Save();
+      Cuisine newCuisine2 = new Cuisine("Thai");
+      newCuisine2.Save();
+
+      newCuisine1.DeleteSingleCuisine();
+
+      List<Cuisine> controlList = new List<Cuisine>{newCuisine2};
+      List<Cuisine> testList = Cuisine.GetAll();
+
+      Assert.Equal(controlList, testList);
+    }
+
     public void Dispose()
     {
       Cuisine.DeleteAll();
