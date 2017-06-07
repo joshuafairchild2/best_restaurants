@@ -20,8 +20,6 @@ namespace Restaurants.Objects
       _id = id;
     }
 
-
-
     public int GetId()
     {
       return _id;
@@ -54,8 +52,6 @@ namespace Restaurants.Objects
     {
       _cuisineId = newCuisineId;
     }
-
-
 
     public override bool Equals(System.Object otherRestaurant)
     {
@@ -106,6 +102,52 @@ namespace Restaurants.Objects
       }
 
       return allRestaurants;
+    }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO restaurants (name, stars, cuisine_id) OUTPUT INSERTED.id VALUES (@RestaurantName, @RestaurantStars, @RestaurantCuisineId);", conn);
+
+      SqlParameter nameParam = new SqlParameter("@RestaurantName", this.GetName());
+      SqlParameter starsParam = new SqlParameter("@RestaurantStars", this.GetStars());
+      SqlParameter cuisineIdParam = new SqlParameter("@RestaurantCuisineId", this.GetCuisineId());
+
+      cmd.Parameters.Add(nameParam);
+      cmd.Parameters.Add(starsParam);
+      cmd.Parameters.Add(cuisineIdParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM restaurants;", conn);
+
+      cmd.ExecuteNonQuery();
+      if(conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }
