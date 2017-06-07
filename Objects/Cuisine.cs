@@ -139,6 +139,23 @@ namespace Restaurants.Objects
       }
     }
 
+    public void DeleteRestaurants()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM restaurants WHERE cuisine_id = @CuisineId;", conn);
+
+      SqlParameter idParam = new SqlParameter("@CuisineId", this.GetId());
+      cmd.Parameters.Add(idParam);
+
+      cmd.ExecuteNonQuery();
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
+
     public static Cuisine Find(int idToFind)
     {
       SqlConnection conn = DB.Connection();

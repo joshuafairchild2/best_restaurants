@@ -17,10 +17,15 @@
   <input type="hidden" name="form-type" id="form-type" value="restaurant">
 </form>
 
+<form action='/cuisine/@Model["selected-cuisine"].GetId()/restaurant' method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" class="btn btn-danger">Delete all restaurants from this cuisine</button>
+</form>
+
 <form action='/cuisine/@Model["selected-cuisine"].GetId()/delete' method="post">
   <input type="hidden" name="_method" value="DELETE">
-  <button type="submit" class="btn btn-danger">Delete this cuisine</button>
-  <h5>All saved restaurants will be deleted</h5>
+  <button type="submit" class="btn btn-danger">Delete this cuisine (All saved restaurants will be deleted)</button>
 </form>
+
 
 <h3><a href="/">Home page</a></h3>

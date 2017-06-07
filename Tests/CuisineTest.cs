@@ -99,6 +99,24 @@ namespace BestRestaurants
       Assert.Equal(controlList, testList);
     }
 
+    [Fact]
+    public void TestCuisineDelete_DeletesAllRestaurantsInCuisine()
+    {
+      Cuisine testCuisine = new Cuisine("Ukrainian");
+      testCuisine.Save();
+      Restaurant rest1 = new Restaurant("Tender Green", 3, testCuisine.GetId());
+      rest1.Save();
+      Restaurant rest2 = new Restaurant("Golden China", 4, testCuisine.GetId());
+      rest2.Save();
+
+      testCuisine.DeleteRestaurants();
+
+      List<Restaurant> controlList = new List<Restaurant>{};
+      List<Restaurant> testList = testCuisine.GetRestaurants();
+
+      Assert.Equal(controlList, testList);
+    }
+
     public void Dispose()
     {
       Cuisine.DeleteAll();

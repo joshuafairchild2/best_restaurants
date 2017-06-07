@@ -64,6 +64,12 @@ namespace BestRestaurants
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
+      Delete["/cuisine/{id}/restaurant"] = parameters => {
+        Cuisine selectedCuisine = Cuisine.Find(parameters.id);
+        selectedCuisine.DeleteRestaurants();
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
     }
   }
 }
