@@ -111,9 +111,9 @@ namespace Restaurants.Objects
 
       SqlCommand cmd = new SqlCommand("INSERT INTO restaurants (name, stars, cuisine_id) OUTPUT INSERTED.id VALUES (@RestaurantName, @RestaurantStars, @RestaurantCuisineId);", conn);
 
-      SqlParameter nameParam = new SqlParameter("@RestaurantName", this.GetName());
       SqlParameter starsParam = new SqlParameter("@RestaurantStars", this.GetStars());
       SqlParameter cuisineIdParam = new SqlParameter("@RestaurantCuisineId", this.GetCuisineId());
+      SqlParameter nameParam = new SqlParameter("@RestaurantName", this.GetName());
 
       cmd.Parameters.Add(nameParam);
       cmd.Parameters.Add(starsParam);
@@ -148,6 +148,44 @@ namespace Restaurants.Objects
       {
         conn.Close();
       }
+    }
+
+    public static Restaurant Find(int idToFind)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM restaurants WHERE id = @RestaurantId;", conn);
+      SqlParameter idParam = new SqlParameter("@RestaurantId", idToFind);
+      cmd.Parameters.Add(idParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+
+      int restaurantId =  0;
+      string name = null;
+      int stars = 0;
+      int cuisineId = 0;
+
+      while(rdr.Read())
+      {
+        restaurantId = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+        stars = rdr.GetInt32(2);
+        cuisineId = rdr.GetInt32(3);
+      }
+      Restaurant foundRestaurant = new Restaurant(name, stars, cuisineId, restaurantId);
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundRestaurant;
     }
   }
 }
