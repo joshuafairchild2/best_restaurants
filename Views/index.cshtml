@@ -11,4 +11,8 @@
 {
   <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a></h4>
 }
-<a href="/cuisine/new"><button type="submit" class="btn btn-info">Add a new cuisine</button></a>
+<!-- <a href="/cuisine/new"><button type="submit" class="btn btn-info">Add a new cuisine</button></a> -->
+<form action="/cuisine/new">
+  <button type="submit" class="btn btn-info">Add a new cuisine</button>
+  <input type="hidden" name="form-type" id="form-type" value="cuisine">
+</form>
