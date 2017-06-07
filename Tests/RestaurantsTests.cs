@@ -14,7 +14,7 @@ namespace BestRestaurants
     }
 
     [Fact]
-    public void Test_DatabaseEmptyAtFirst()
+    public void TestRestaurant_DatabaseEmptyAtFirst()
     {
       //Arrange
       List<Restaurant> allRestaurants = new List<Restaurant>{};
@@ -27,7 +27,7 @@ namespace BestRestaurants
     }
 
     [Fact]
-    public void Test_Equal_ReturnEqualValues()
+    public void TestRestaurant_Equal_ReturnEqualValues()
     {
       //Arrange
       Restaurant newRestaurant = new Restaurant("Lucia", 3, 1);
