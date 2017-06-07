@@ -14,10 +14,10 @@ namespace Restaurants.Objects
 
     public Restaurant(string name, int stars, int cuisineId, int id = 0)
     {
+      _id = id;
       _name = name;
       _stars = stars;
       _cuisineId = cuisineId;
-      _id = id;
     }
 
     public int GetId()
@@ -46,7 +46,7 @@ namespace Restaurants.Objects
     }
     public int GetCuisineId()
     {
-      return _stars;
+      return _cuisineId;
     }
     public void SetCuisineId(int newCuisineId)
     {
@@ -111,9 +111,9 @@ namespace Restaurants.Objects
 
       SqlCommand cmd = new SqlCommand("INSERT INTO restaurants (name, stars, cuisine_id) OUTPUT INSERTED.id VALUES (@RestaurantName, @RestaurantStars, @RestaurantCuisineId);", conn);
 
+      SqlParameter nameParam = new SqlParameter("@RestaurantName", this.GetName());
       SqlParameter starsParam = new SqlParameter("@RestaurantStars", this.GetStars());
       SqlParameter cuisineIdParam = new SqlParameter("@RestaurantCuisineId", this.GetCuisineId());
-      SqlParameter nameParam = new SqlParameter("@RestaurantName", this.GetName());
 
       cmd.Parameters.Add(nameParam);
       cmd.Parameters.Add(starsParam);

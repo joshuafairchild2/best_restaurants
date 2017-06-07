@@ -155,5 +155,38 @@ namespace Restaurants.Objects
 
       return foundCuisine;
     }
+
+    public List<Restaurant> GetRestaurants()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM restaurants WHERE cuisine_id = @CuisineId;", conn);
+      SqlParameter cuisineIdParam = new SqlParameter("@CuisineId", this.GetId());
+      cmd.Parameters.Add(cuisineIdParam);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Restaurant> allRestaurants = new List<Restaurant>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        int stars = rdr.GetInt32(2);
+        int cuisineId = rdr.GetInt32(3);
+        Restaurant newRestaurant = new Restaurant(name, stars, cuisineId, id);
+        allRestaurants.Add(newRestaurant);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return allRestaurants;
+    }
   }
 }
