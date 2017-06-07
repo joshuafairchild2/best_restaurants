@@ -113,7 +113,7 @@ namespace Restaurants.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM cuisines;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM cuisines; DELETE FROM restaurants;", conn);
 
       cmd.ExecuteNonQuery();
       if(conn != null)

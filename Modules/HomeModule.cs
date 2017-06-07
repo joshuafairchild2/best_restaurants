@@ -54,6 +54,11 @@ namespace BestRestaurants
         model.Add("selected-cuisine", selectedCuisine);
         return View["show_restaurants.cshtml", model];
       };
+      Delete["/"] = _ => {
+        Cuisine.DeleteAll();
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
     }
   }
 }
