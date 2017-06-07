@@ -37,9 +37,23 @@ namespace BestRestaurants
       Assert.Equal(newCuisine, testCuisine);
     }
 
+    [Fact]
+    public void TestCuisine_Save_SavesCuisineToDatabase()
+    {
+      //arrange
+      Cuisine newCuisine = new Cuisine("Chinese");
+      newCuisine.Save();
+
+      //Act
+      Cuisine savedCuisine = Cuisine.GetAll()[0];
+
+      //assert
+      Assert.Equal(newCuisine, savedCuisine);
+    }
+
     public void Dispose()
     {
-      // Cuisine.DeleteAll();
+      Cuisine.DeleteAll();
     }
   }
 }
