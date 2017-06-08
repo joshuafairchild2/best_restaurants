@@ -95,6 +95,24 @@ namespace BestRestaurants
       Assert.Equal(newRestaurant, subscribedRestaurant);
     }
 
+    [Fact]
+    public void TestClient_SearchByName()
+    {
+      Client client1 = new Client("Ed");
+      client1.Save();
+      Client client2 = new Client("Edd");
+      client2.Save();
+      Client client3 = new Client("Eddy");
+      client3.Save();
+      Client client4 = new Client("edd");
+      client4.Save();
+
+      List<Client> controlList = new List<Client>{client2, client4};
+      List<Client> matches = Client.SearchByName("edd");
+
+      Assert.Equal(controlList, matches);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();

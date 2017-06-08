@@ -206,5 +206,37 @@ namespace Restaurants.Objects
 
       return subscriptions;
     }
+
+    public static List<Client> SearchByName(string nameToSearch)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE name = @SearchName;", conn);
+      SqlParameter searchParam = new SqlParameter("@SearchName", nameToSearch);
+      cmd.Parameters.Add(searchParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Client> matches = new List<Client>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        Client newClient = new Client(name, id);
+        matches.Add(newClient);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return matches;
+    }
   }
 }

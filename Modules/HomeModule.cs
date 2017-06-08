@@ -158,6 +158,23 @@ namespace BestRestaurants
         model.Add("all-clients", allClients);
         return View["restaurant.cshtml", model];
       };
+      // Get["/search/results"] = _ => {
+      //   // string searchType = Request.Query["search-type"]; //this is the select dropdown
+      //   // string searchQuery = Request.Query["search-query"];
+      //   // if(searchType == "client")
+      //   // {
+      //   //   List<Client> matches = Client.SearchByName(searchQuery);
+      //   // }
+      //   // // else if(searchType == "cuisine")
+      //   // // {
+      //   // //   List<Cuisine> matches = Cuisine.SearchByName(searchQuery);
+      //   // // }
+      //   // // else if(searchType == "restaurant")
+      //   // // {
+      //   // //   List<Restaurant> matches = Restaurant.SearchByName(searchQuery);
+      //   // // }
+      //   // return View["results.cshtml", matches];
+      // };
     }
   }
 }
