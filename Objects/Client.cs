@@ -120,5 +120,39 @@ namespace Restaurants.Objects
         conn.Close();
       }
     }
+
+    public static Client Find(int idToFind)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientId;", conn);
+      SqlParameter idParam = new SqlParameter("@ClientId", idToFind);
+      cmd.Parameters.Add(idParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+
+      int id =  0;
+      string name = null;
+
+      while(rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+      }
+      Client foundClient = new Client(name, id);
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundClient;
+    }
   }
 }

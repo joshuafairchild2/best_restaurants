@@ -48,6 +48,20 @@ namespace BestRestaurants
       Assert.Equal(newClient, savedClient);
     }
 
+    [Fact]
+    public void TestClient_Find_FindsClientInDatabase()
+    {
+      //arrange
+      Client newClient = new Client("Sam");
+      newClient.Save();
+
+      //Act
+      Client foundClient = Client.Find(newClient.GetId());
+
+      //assert
+      Assert.Equal(newClient, foundClient);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();

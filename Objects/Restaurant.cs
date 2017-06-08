@@ -186,6 +186,7 @@ namespace Restaurants.Objects
 
       return foundRestaurant;
     }
+
     public void Update(string name, int stars)
     {
       SqlConnection conn = DB.Connection();
