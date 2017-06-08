@@ -250,5 +250,37 @@ namespace Restaurants.Objects
         conn.Close();
       }
     }
+
+    public static List<Cuisine> SearchByName(string nameToSearch)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM cuisines WHERE name = @SearchName;", conn);
+      SqlParameter searchParam = new SqlParameter("@SearchName", nameToSearch);
+      cmd.Parameters.Add(searchParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Cuisine> matches = new List<Cuisine>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        Cuisine newCuisine = new Cuisine(name, id);
+        matches.Add(newCuisine);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return matches;
+    }
   }
 }

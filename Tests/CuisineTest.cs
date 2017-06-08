@@ -130,6 +130,24 @@ namespace BestRestaurants
       Assert.Equal("Chinese", testCuisine.GetName());
     }
 
+    [Fact]
+    public void TestCuisine_SearchByName_ReturnsMatches()
+    {
+      Cuisine cuisine1 = new Cuisine("Thai");
+      cuisine1.Save();
+      Cuisine cuisine2 = new Cuisine("Chinese");
+      cuisine2.Save();
+      Cuisine cuisine3 = new Cuisine("Indian");
+      cuisine3.Save();
+      Cuisine cuisine4 = new Cuisine("Italian");
+      cuisine4.Save();
+
+      List<Cuisine> controlList = new List<Cuisine>{cuisine2};
+      List<Cuisine> matches = Cuisine.SearchByName("chinese");
+
+      Assert.Equal(controlList, matches);
+    }
+
     public void Dispose()
     {
       Cuisine.DeleteAll();
