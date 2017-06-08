@@ -127,9 +127,11 @@ namespace BestRestaurants
         Cuisine selectedCuisine = Cuisine.Find(parameters.cuisId);
         Restaurant selectedRestaurant = Restaurant.Find(parameters.restId);
         List<Client> subscribers = selectedRestaurant.GetSubscribers();
+        List<Client> allClients = Client.GetAll();
         model.Add("selected-cuisine", selectedCuisine);
         model.Add("restaurant", selectedRestaurant);
         model.Add("subscribers", subscribers);
+        model.Add("all-clients", allClients);
         return View["restaurant.cshtml", model];
       };
       Post["/cuisine/profile/new"] = _ => {
@@ -140,6 +142,21 @@ namespace BestRestaurants
         model.Add("user-name", newClient);
         model.Add("cuisines", allCuisines);
         return View["index.cshtml", model];
+      };
+      Post["/cuisine/{cuisId}/restaurant/{restId}/subscribed"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Cuisine selectedCuisine = Cuisine.Find(parameters.cuisId);
+        Restaurant selectedRestaurant = Restaurant.Find(parameters.restId);
+        int userId = Request.Form["selected-user"];
+        Client selectedUser = Client.Find(userId);
+        selectedUser.SubscribeToRestaurant(selectedRestaurant);
+        List<Client> subscribers = selectedRestaurant.GetSubscribers();
+        List<Client> allClients = Client.GetAll();
+        model.Add("selected-cuisine", selectedCuisine);
+        model.Add("restaurant", selectedRestaurant);
+        model.Add("subscribers", subscribers);
+        model.Add("all-clients", allClients);
+        return View["restaurant.cshtml", model];
       };
     }
   }

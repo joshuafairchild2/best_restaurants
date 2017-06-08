@@ -7,6 +7,25 @@
     <h3>Rating: @Model["restaurant"].GetStars()</h3>
   </div>
   <div class="col-md-6">
+    @if(Model["all-clients"].Count == 0)
+    {
+      <p>You must <a href="/">create</a> a user account before you can begin subscribing to restaurants.</p>
+    }
+    else
+    {
+      <form action='/cuisine/@Model["selected-cuisine"].GetId()/restaurant/@Model["restaurant"].GetId()/subscribed' method="post">
+        <div class="form-group">
+          <label for="selected-user">Which user are you?</label>
+          <select class="form-control" name="selected-user">
+            @foreach(var client in Model["all-clients"])
+            {
+              <option value="@client.GetId()">@client.GetName()</option>
+            }
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    }
     <h3>Subscribers:</h3>
     @foreach(var client in @Model["subscribers"])
     {
