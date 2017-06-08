@@ -33,6 +33,21 @@
     }
   </div>
   <div id="user-form" class="col-md-6">
+    <form action="/search/results" method="get">
+      <div class="form-group">
+        <select class="form-control" name="search-type">
+          <option value="cuisine">Cuisine search</option>
+          <option value="restaurant">Restaurant search</option>
+          <option value="client">User search</option>
+        </select>
+        <div class="input-group">
+          <input type="text" name="search-query" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-info">Search</button>
+          </span>
+        </div>
+      </div>
+    </form>
     <h3>Create user profile</h3>
     <form action="/cuisine/profile/new" method="post">
       <div class="form-group">

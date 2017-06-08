@@ -1,0 +1,28 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">Results</h3>
+<h3>Your search of "@Model["search-query"]" turned up @Model["matches"].Count results:</h3>
+@if(Model["search-type"] == "client")
+{
+  @foreach(var result in Model["matches"])
+  {
+    <h3>@result.GetName()</h3>
+  }
+}
+else if(Model["search-type"] == "restaurant")
+{
+  @foreach(var result in Model["matches"])
+  {
+    <h3><a href='/cuisine/@result.GetCuisineId()/restaurant/@result.GetId()'>@result.GetName()</a></h3>
+  }
+}
+else if(Model["search-type"] == "cuisine")
+{
+  @foreach(var result in Model["matches"])
+  {
+    <h3><a href='/cuisine/@result.GetId()'>@result.GetName()</a></h3>
+  }
+}
+<a href="/"><span class="btn btn-info">Home page</span></a>

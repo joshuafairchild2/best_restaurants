@@ -158,23 +158,32 @@ namespace BestRestaurants
         model.Add("all-clients", allClients);
         return View["restaurant.cshtml", model];
       };
-      // Get["/search/results"] = _ => {
-      //   // string searchType = Request.Query["search-type"]; //this is the select dropdown
-      //   // string searchQuery = Request.Query["search-query"];
-      //   // if(searchType == "client")
-      //   // {
-      //   //   List<Client> matches = Client.SearchByName(searchQuery);
-      //   // }
-      //   // // else if(searchType == "cuisine")
-      //   // // {
-      //   // //   List<Cuisine> matches = Cuisine.SearchByName(searchQuery);
-      //   // // }
-      //   // // else if(searchType == "restaurant")
-      //   // // {
-      //   // //   List<Restaurant> matches = Restaurant.SearchByName(searchQuery);
-      //   // // }
-      //   // return View["results.cshtml", matches];
-      // };
+      Get["/search/results"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        string searchType = Request.Query["search-type"];
+        string searchQuery = Request.Query["search-query"];
+        List<Client> clientMatches = new List<Client>{};
+        List<Cuisine> cuisineMatches = new List<Cuisine>{};
+        List<Restaurant> restaurantMatches = new List<Restaurant>{};
+        if(searchType == "client")
+        {
+          clientMatches = Client.SearchByName(searchQuery);
+          model.Add("matches", clientMatches);
+        }
+        else if(searchType == "cuisine")
+        {
+          cuisineMatches = Cuisine.SearchByName(searchQuery);
+          model.Add("matches", cuisineMatches);
+        }
+        else if(searchType == "restaurant")
+        {
+          restaurantMatches = Restaurant.SearchByName(searchQuery);
+          model.Add("matches", restaurantMatches);
+        }
+        model.Add("search-type", searchType);
+        model.Add("search-query", searchQuery);
+        return View["results.cshtml", model];
+      };
     }
   }
 }
