@@ -1,0 +1,16 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+<h1>@Model["restaurant"].GetName()<small><form class="inline-edit-button" action='/cuisine/@Model["selected-cuisine"].GetId()/restaurant/@Model["restaurant"].GetId()/update' method="get"><input type="hidden" name="form-type" id="form-type" value="restaurant-update"><button type="submit" class="btn btn-xs">[edit]</button></form></small></h1>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Rating: @Model["restaurant"].GetStars()</h3>
+  </div>
+  <div class="col-md-6">
+    <h3>Subscribers:</h3>
+    @foreach(var client in @Model["subscribers"])
+    {
+      <li>@client.GetName()</li>
+    }
+  </div>
+</div>

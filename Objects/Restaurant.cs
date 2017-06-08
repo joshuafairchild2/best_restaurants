@@ -219,7 +219,7 @@ namespace Restaurants.Objects
       }
     }
 
-    public List<Client> GetClients()
+    public List<Client> GetSubscribers()
     {
       SqlConnection conn = DB.Connection();
       conn.Open();

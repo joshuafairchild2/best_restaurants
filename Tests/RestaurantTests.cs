@@ -96,7 +96,7 @@ namespace BestRestaurants
       newClient2.SubscribeToRestaurant(newRestaurant);
 
       List<Client> controlList = new List<Client>{newClient1, newClient2};
-      List<Client> testList = newRestaurant.GetClients();
+      List<Client> testList = newRestaurant.GetSubscribers();
 
       Assert.Equal(controlList, testList);
     }

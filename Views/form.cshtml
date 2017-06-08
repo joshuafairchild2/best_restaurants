@@ -17,7 +17,7 @@
 @if(Model["form-type"] == "restaurant")
 {
   <h1 class="text-center">Add a restaurant</h1>
-  <form action='/cuisine/@Model["selected-cuisine"].GetId()/restaurants' method="post">
+  <form action='/cuisine/@Model["selected-cuisine"].GetId()/restaurant' method="post">
     <div class="form-group">
       <label for="restaurant-name-input">Restaurant name:</label>
       <input type="text" name="restaurant-name-input" id="restaurant-name-input" class="form-control">
