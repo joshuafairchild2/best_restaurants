@@ -13,6 +13,7 @@
     <button type="submit" class="btn btn-info">Add cuisine</button>
   </form>
 }
+
 @if(Model["form-type"] == "restaurant")
 {
   <h1 class="text-center">Add a restaurant</h1>
@@ -26,5 +27,18 @@
       <input type="number" name="restaurant-stars-input" id="restaurant-stars-input" class="form-control">
     </div>
     <button type="submit" class="btn btn-info">Add restaurant</button>
+  </form>
+}
+
+@if(Model["form-type"] == "cuisine-update")
+{
+  <h1 class="text-center">Edit your cuisine</h1>
+  <form action='/cuisine/@Model["selected-cuisine"].GetId()/update' method="post">
+    <div class="form-group">
+      <input type="hidden" name="_method" value="PATCH">
+      <label for="cuisine-input">Enter the type of cuisine</label>
+      <input type="text" name="cuisine-input" class="form-control" value='@Model["selected-cuisine"].GetName()'>
+    </div>
+    <button type="submit" class="btn btn-info">Change cuisine</button>
   </form>
 }

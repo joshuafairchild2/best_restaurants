@@ -70,11 +70,21 @@ namespace BestRestaurants
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
-      // Get["/cuisine/{id}/update"] = parameters => {
-      //
-      //   return View["form.cshtml"];
-      // };
-      //WORK ON ME!!
+      Get["/cuisine/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Cuisine selectedCuisine = Cuisine.Find(parameters.id);
+        string formType = Request.Query["form-type"];
+        model.Add("selected-cuisine", selectedCuisine);
+        model.Add("form-type", formType);
+        return View["form.cshtml", model];
+      };
+      Patch["/cuisine/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Cuisine selectedCuisine = Cuisine.Find(parameters.id);
+        selectedCuisine.Update(Request.Form["cuisine-input"]);
+        List<Cuisine> allCuisines = Cuisine.GetAll();
+        return View["index.cshtml", allCuisines];
+      };
     }
   }
 }

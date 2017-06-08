@@ -6,6 +6,8 @@ using Restaurants.Objects;
 
 namespace BestRestaurants
 {
+  [Collection("BestRestaurants")]
+
   public class CuisineTest : IDisposable
   {
     public CuisineTest()
@@ -98,8 +100,6 @@ namespace BestRestaurants
 
       Assert.Equal(controlList, testList);
     }
-
-    //WORK ON ME (BELOW)
 
     [Fact]
     public void TestCuisineDelete_DeletesAllRestaurantsInCuisine()

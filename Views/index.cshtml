@@ -8,17 +8,22 @@
   <h3>You have not added any cuisines yet!</h3>
 }
 
-<form action="/cuisine/new">
-  <button type="submit" class="btn btn-info">Add a new cuisine</button>
-  <input type="hidden" name="form-type" id="form-type" value="cuisine">
-</form>
 @if(Model.Count != 0)
 {
   @foreach(var cuisine in Model)
   {
-    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a> | <a href="/cuisine/@cuisine.GetId()/update"><input type="hidden" name="form-type" id="form-type" value="cuisine">[edit]</a></h4>
-    <!-- Work on me!! -->
+    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a> | <form id="inline-edit-button" action="/cuisine/@cuisine.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="cuisine-update"><button type="submit" name="button">[edit]</button></form></h4>
   }
+}
+
+<form action="/cuisine/new">
+  <button type="submit" class="btn btn-info">Add a new cuisine</button>
+  <input type="hidden" name="form-type" id="form-type" value="cuisine">
+</form>
+
+
+@if(Model.Count != 0)
+{
   <form action="/" method="post">
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit" class="btn btn-danger">Delete all cuisines</button>
