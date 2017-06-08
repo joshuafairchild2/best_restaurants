@@ -12,7 +12,7 @@
 {
   @foreach(var cuisine in Model)
   {
-    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a> | <form id="inline-edit-button" action="/cuisine/@cuisine.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="cuisine-update"><button type="submit" name="button">[edit]</button></form></h4>
+    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a> | <form class="inline-edit-button" action="/cuisine/@cuisine.GetId()/update" method="get"><input type="hidden" name="form-type" id="form-type" value="cuisine-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4>
   }
 }
 

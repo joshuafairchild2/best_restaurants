@@ -68,6 +68,21 @@ namespace BestRestaurants
       Assert.Equal(newRestaurant, foundRestaurant);
     }
 
+    [Fact]
+    public void TestRestaurant_Update_UpdateRastaurantInfo()
+    {
+      Cuisine testCuisine = new Cuisine("Ukrainian");
+      testCuisine.Save();
+
+      Restaurant restaurant = new Restaurant("Tender Green", 3, testCuisine.GetId());
+      restaurant.Save();
+
+      restaurant.Update("Tender Blue", 4);
+
+      Assert.Equal("Tender Blue", restaurant.GetName());
+      Assert.Equal(4, restaurant.GetStars());
+    }
+
     public void Dispose()
     {
       Restaurant.DeleteAll();

@@ -125,7 +125,6 @@ namespace Restaurants.Objects
       {
         this._id = rdr.GetInt32(0);
       }
-      System.Console.WriteLine("id: {0}, name: {1}, CuisineId:{2}, stars: {3}", this.GetId(), this.GetName(), this.GetCuisineId(), this.GetStars());
       if(rdr != null)
       {
         rdr.Close();
@@ -186,6 +185,37 @@ namespace Restaurants.Objects
       }
 
       return foundRestaurant;
+    }
+    public void Update(string name, int stars)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE restaurants SET name = @RestaurantName, stars = @RestaurantStars OUTPUT INSERTED.name, INSERTED.stars WHERE id = @RestaurantId;", conn);
+
+      SqlParameter nameParam = new SqlParameter("@RestaurantName", name);
+      SqlParameter starsParam = new SqlParameter("@RestaurantStars", stars);
+      SqlParameter idParam = new SqlParameter("@RestaurantId", this.GetId());
+
+      cmd.Parameters.Add(nameParam);
+      cmd.Parameters.Add(starsParam);
+      cmd.Parameters.Add(idParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+        this._stars = rdr.GetInt32(1);
+      }
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }

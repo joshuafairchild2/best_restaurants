@@ -8,7 +8,7 @@
 }
 @foreach(var restaurant in Model["restaurants"])
 {
-  <h4>@restaurant.GetName()</h4>
+  <h4>@restaurant.GetName() | <form class="inline-edit-button" action='/cuisine/@Model["selected-cuisine"].GetId()/restaurant/@restaurant.GetId()/update' method="get"><input type="hidden" name="form-type" id="form-type" value="restaurant-update"><button type="submit" class="btn btn-xs">[edit]</button></form></h4>
   <li>Stars: @restaurant.GetStars()</li>
 }
 
