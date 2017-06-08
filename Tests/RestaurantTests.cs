@@ -83,6 +83,24 @@ namespace BestRestaurants
       Assert.Equal(4, restaurant.GetStars());
     }
 
+    public void TestRestaurant_GetSubscribers_ReturnsListOfSubscribers()
+    {
+      Restaurant newRestaurant = new Restaurant("Tender Green", 3, 1);
+      Client newClient1 = new Client("Sam");
+      Client newClient2 = new Client("Tom");
+      newRestaurant.Save();
+      newClient1.Save();
+      newClient2.Save();
+
+      newClient1.SubscribeToRestaurant(newRestaurant);
+      newClient2.SubscribeToRestaurant(newRestaurant);
+
+      List<Client> controlList = new List<Client>{newClient1, newClient2};
+      List<Client> testList = newRestaurant.GetClients();
+
+      Assert.Equal(controlList, testList);
+    }
+
     public void Dispose()
     {
       Restaurant.DeleteAll();

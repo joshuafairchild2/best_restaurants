@@ -218,5 +218,37 @@ namespace Restaurants.Objects
         conn.Close();
       }
     }
+
+    public List<Client> GetClients()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT clients.* FROM restaurants JOIN clients_restaurants ON (restaurants.id = clients_restaurants.restaurant_id) JOIN clients ON (clients_restaurants.client_id = clients.id) WHERE restaurants.id = @RestaurantId;", conn);
+      SqlParameter restaurantIdParam = new SqlParameter("@RestaurantId", this.GetId());
+      cmd.Parameters.Add(restaurantIdParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Client> subscribers = new List<Client>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        Client newClient = new Client(name, id);
+        subscribers.Add(newClient);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return subscribers;
+    }
   }
 }
