@@ -96,7 +96,7 @@ namespace BestRestaurants
     }
 
     [Fact]
-    public void TestClient_SearchByName()
+    public void TestClient_SearchByName_ReturnsMatches()
     {
       Client client1 = new Client("Ed");
       client1.Save();
