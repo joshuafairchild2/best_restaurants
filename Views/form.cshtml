@@ -56,6 +56,10 @@
       <label for="restaurant-stars-input">How many stars would you rate it?</label>
       <input type="number" name="restaurant-stars-input" id="restaurant-stars-input" class="form-control" value='@Model["selected-restaurant"].GetStars()'>
     </div>
+    <div class="form-group">
+      <label for="cuisine-id-input">Cuisine</label>
+      <input type="number" name="cuisine-id-input" id="cuisine-id-input" class="form-control" placeholder='@Model["selected-cuisine"].GetName()' disabled>
+    </div>
     <button type="submit" class="btn btn-info">Update restaurant</button>
   </form>
 }
