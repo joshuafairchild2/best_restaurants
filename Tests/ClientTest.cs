@@ -62,6 +62,39 @@ namespace BestRestaurants
       Assert.Equal(newClient, foundClient);
     }
 
+    [Fact]
+    public void TestClient_GetSubscriptions_ReturnsListOfSubscriptions()
+    {
+      Client newClient = new Client("Sam");
+      newClient.Save();
+      Restaurant newRestaurant1 = new Restaurant("Tender Green", 3, 1);
+      newRestaurant1.Save();
+      Restaurant newRestaurant2 = new Restaurant("Golden CHina", 2, 1);
+      newRestaurant2.Save();
+
+      newClient.SubscribeToRestaurant(newRestaurant1);
+      newClient.SubscribeToRestaurant(newRestaurant2);
+
+      List<Restaurant> controlList = new List<Restaurant> {newRestaurant1, newRestaurant2};
+      List<Restaurant> subscriptions = newClient.GetSubscriptions();
+
+      Assert.Equal(controlList, subscriptions);
+    }
+
+    [Fact]
+    public void TestClient_SubscribeToRestaurant_SavesRelationshipToDatabase()
+    {
+      Client newClient = new Client("Sam");
+      newClient.Save();
+      Restaurant newRestaurant = new Restaurant("Tender Green", 3, 1);
+      newRestaurant.Save();
+
+      newClient.SubscribeToRestaurant(newRestaurant);
+
+      Restaurant subscribedRestaurant = newClient.GetSubscriptions()[0];
+      Assert.Equal(newRestaurant, subscribedRestaurant);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();

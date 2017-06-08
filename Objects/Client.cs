@@ -154,5 +154,57 @@ namespace Restaurants.Objects
 
       return foundClient;
     }
+
+    public void SubscribeToRestaurant(Restaurant subscription)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients_restaurants (client_id, restaurant_id) VALUES (@ClientId, @RestaurantId);", conn);
+      SqlParameter clientIdParam = new SqlParameter("@ClientId", this.GetId());
+      SqlParameter restaurantIdParam = new SqlParameter("@RestaurantId", subscription.GetId());
+      cmd.Parameters.Add(clientIdParam);
+      cmd.Parameters.Add(restaurantIdParam);
+      cmd.ExecuteNonQuery();
+
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public List<Restaurant> GetSubscriptions()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT restaurants.* FROM clients JOIN clients_restaurants ON (clients.id = clients_restaurants.client_id) JOIN restaurants ON (clients_restaurants.restaurant_id = restaurants.id) WHERE clients.id = @ClientId;", conn);
+      SqlParameter clientIdParam = new SqlParameter("@ClientId", this.GetId());
+      cmd.Parameters.Add(clientIdParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Restaurant> subscriptions = new List<Restaurant>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+        int stars = rdr.GetInt32(2);
+        int cuisineId = rdr.GetInt32(3);
+        Restaurant newRestaurant = new Restaurant(name, stars, cuisineId, id);
+        subscriptions.Add(newRestaurant);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return subscriptions;
+    }
   }
 }
