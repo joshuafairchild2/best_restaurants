@@ -12,7 +12,7 @@ namespace BestRestaurants
     {
        DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=best_restaurants_test;Integrated Security=SSPI;";
     }
-
+    
     [Fact]
     public void TestRestaurant_DatabaseEmptyAtFirst()
     {
@@ -46,6 +46,7 @@ namespace BestRestaurants
 
       //Act
       Restaurant savedRestaurant = Restaurant.GetAll()[0];
+      System.Console.WriteLine(newRestaurant.GetId());
 
       //assert
       Assert.Equal(newRestaurant, savedRestaurant);

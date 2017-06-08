@@ -222,5 +222,33 @@ namespace Restaurants.Objects
 
       return allRestaurants;
     }
+
+    public void Update(string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE cuisines SET name = @CuisineName OUTPUT INSERTED.name WHERE id = @CuisineId;", conn);
+
+      SqlParameter nameParam = new SqlParameter("@CuisineName", newName);
+      SqlParameter idParam = new SqlParameter("@CuisineId", this.GetId());
+      cmd.Parameters.Add(nameParam);
+      cmd.Parameters.Add(idParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+      }
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
   }
 }

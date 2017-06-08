@@ -125,7 +125,7 @@ namespace Restaurants.Objects
       {
         this._id = rdr.GetInt32(0);
       }
-
+      System.Console.WriteLine("id: {0}, name: {1}, CuisineId:{2}, stars: {3}", this.GetId(), this.GetName(), this.GetCuisineId(), this.GetStars());
       if(rdr != null)
       {
         rdr.Close();

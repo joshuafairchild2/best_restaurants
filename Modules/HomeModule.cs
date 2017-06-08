@@ -70,6 +70,11 @@ namespace BestRestaurants
         List<Cuisine> allCuisines = Cuisine.GetAll();
         return View["index.cshtml", allCuisines];
       };
+      // Get["/cuisine/{id}/update"] = parameters => {
+      //
+      //   return View["form.cshtml"];
+      // };
+      //WORK ON ME!!
     }
   }
 }

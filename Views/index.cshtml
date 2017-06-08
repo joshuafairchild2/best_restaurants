@@ -16,7 +16,8 @@
 {
   @foreach(var cuisine in Model)
   {
-    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a></h4>
+    <h4><a href="/cuisine/@cuisine.GetId()">@cuisine.GetName()</a> | <a href="/cuisine/@cuisine.GetId()/update"><input type="hidden" name="form-type" id="form-type" value="cuisine">[edit]</a></h4>
+    <!-- Work on me!! -->
   }
   <form action="/" method="post">
     <input type="hidden" name="_method" value="DELETE">

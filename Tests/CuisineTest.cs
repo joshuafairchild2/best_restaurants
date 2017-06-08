@@ -99,9 +99,11 @@ namespace BestRestaurants
       Assert.Equal(controlList, testList);
     }
 
+    //WORK ON ME (BELOW)
+
     [Fact]
     public void TestCuisineDelete_DeletesAllRestaurantsInCuisine()
-    {
+     {
       Cuisine testCuisine = new Cuisine("Ukrainian");
       testCuisine.Save();
       Restaurant rest1 = new Restaurant("Tender Green", 3, testCuisine.GetId());
@@ -117,10 +119,20 @@ namespace BestRestaurants
       Assert.Equal(controlList, testList);
     }
 
+    [Fact]
+    public void TestCuisine_Update_UpdatesCuisineName()
+    {
+      Cuisine testCuisine = new Cuisine("Ukrainian");
+      testCuisine.Save();
+
+      testCuisine.Update("Chinese");
+
+      Assert.Equal("Chinese", testCuisine.GetName());
+    }
+
     public void Dispose()
     {
       Cuisine.DeleteAll();
-      Restaurant.DeleteAll();
     }
   }
 }
